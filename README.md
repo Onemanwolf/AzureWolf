@@ -1,0 +1,2 @@
+# AzureWolf
+Azure Pratice
