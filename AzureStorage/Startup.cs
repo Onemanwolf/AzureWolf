@@ -4,8 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing.Template;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using AzureStorage.Controllers;
 
 namespace AzureStorage
 {
@@ -22,6 +26,10 @@ namespace AzureStorage
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            //services.AddDbContext<CustomerContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("StorageConnectionString")));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,9 +49,12 @@ namespace AzureStorage
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+
+                //routes.MapRoute("Index", "Index",
+                //    defaults: new { controller = "StorageController", action = "Index" });
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+
+
             });
         }
     }
